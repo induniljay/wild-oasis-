@@ -21,6 +21,7 @@ interface CabinFormData {
 
 function CreateCabinForm({
   cabinToEdit = {},
+  onCloseModal,
 }: {
   cabinToEdit?: Partial<CabinFormData>;
 }) {
@@ -50,6 +51,7 @@ function CreateCabinForm({
         {
           onSuccess: (data) => {
             reset();
+            onCloseModal?.();
           },
         }
       );
@@ -60,6 +62,7 @@ function CreateCabinForm({
         {
           onSuccess: (data) => {
             reset();
+            onCloseModal?.();
           },
         }
       );
@@ -71,7 +74,10 @@ function CreateCabinForm({
   }
 
   return (
-    <Form onSubmit={handleSubmit(onSubmit, onError)}>
+    <Form
+      onSubmit={handleSubmit(onSubmit, onError)}
+      type={onCloseModal ? "modal" : "regular"}
+    >
       {/* <FormRow2>
         <Label htmlFor="name">Cabin name</Label>
         <Input
@@ -161,7 +167,11 @@ function CreateCabinForm({
 
       <FormRow>
         {/* type is an HTML attribute! */}
-        <Button variation="secondary" type="reset">
+        <Button
+          variation="secondary"
+          type="reset"
+          onClick={() => onCloseModal?.()}
+        >
           Cancel
         </Button>
         <Button disabled={isCreating}>
