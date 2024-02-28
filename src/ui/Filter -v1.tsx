@@ -35,39 +35,23 @@ const FilterButton = styled.button`
   }
 `;
 
-export default function Filter({ filterFileds, options }) {
+export default function Filter() {
   const [searchParams, setSearchParams] = useSearchParams();
 
-  //get current active btn
-  const currentFilter = searchParams.get(filterFileds) || options[0].value;
-
   function handleClick(value) {
-    searchParams.set(filterFileds, value);
-    if (searchParams.get("page")) searchParams.set("page", 1);
-
+    searchParams.set("discount", value);
     setSearchParams(searchParams);
   }
 
   return (
     <StyledFilter>
-      {options?.map((btn) => (
-        <FilterButton
-          onClick={() => handleClick(btn.value)}
-          key={btn.value}
-          // active is a prop which used for  add css for currennt active btn
-          active={btn.value === currentFilter}
-          disabled={btn.value === currentFilter}
-        >
-          {btn.label}
-        </FilterButton>
-      ))}
-      {/* <FilterButton onClick={() => handleClick("all")}>All</FilterButton>
+      <FilterButton onClick={() => handleClick("all")}>All</FilterButton>
       <FilterButton onClick={() => handleClick("no-discount")}>
         No discount
       </FilterButton>
       <FilterButton onClick={() => handleClick("with-discount")}>
         with discount
-      </FilterButton> */}
+      </FilterButton>
     </StyledFilter>
   );
 }

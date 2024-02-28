@@ -95,7 +95,7 @@ function Toggle({ id }) {
       y: rect.y + rect.height + 8,
     });
 
-    openId === "" || openId !== id ? openFn(id) : closeFn();
+    openId === "" || openId !== id ? openFn?.(id) : closeFn?.();
   }
 
   return (
@@ -126,7 +126,7 @@ function Button({ children, icon, onClick }) {
 
   function handleClick() {
     onClick?.();
-    closeFn();
+    closeFn?.();
   }
   return (
     <li>
